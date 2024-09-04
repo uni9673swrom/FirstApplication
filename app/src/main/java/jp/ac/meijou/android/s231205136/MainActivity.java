@@ -1,6 +1,7 @@
 package jp.ac.meijou.android.s231205136;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         binding.saveButton.setOnClickListener(view ->{
             var gap =binding.editTextText.getText().toString();
             prefDataStore.setString("name", gap);
@@ -69,6 +71,16 @@ public class MainActivity extends AppCompatActivity {
                 binding.textView3.setText(editable.toString());
             }
         });
+        binding.button6.setOnClickListener(view ->{
+            var intent = new Intent();
+            intent.putExtra("ret","OK");
+            setResult(RESULT_OK,intent);
+            finish();
+        });
+        binding.button7.setOnClickListener(view ->{
+            setResult(RESULT_CANCELED);
+            finish();
+        });
 
     }
     protected void onStart(){
@@ -78,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
                     binding.textView3.setText(name);
                     binding.editTextText.setText(name);
                 });
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String gg = getIntent().getStringExtra("text");
+        binding.textView3.setText(gg);
     }
 
     protected void onStop(){
